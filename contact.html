@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Zaiqa Pakistani Recipe Finder</title>
+  <meta name="description" content="Get in touch with the Zaiqa team. Share a recipe, report an issue, or collaborate with us. We love hearing from Pakistani food lovers!">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/placeholder.svg" type="image/svg+xml">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    .contact-hero {
+      background: linear-gradient(135deg, var(--color-green-deep) 0%, #1a5c4e 60%, #9b3b1a 100%);
+      padding: 4.5rem 0 3.5rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--color-bg-main);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .contact-hero h1 { font-family: 'Playfair Display', serif; }
+    .contact-form-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+    }
+    .contact-info-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .contact-info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .contact-info-card .info-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .form-control, .form-select {
+      border-radius: 10px;
+      border-color: var(--color-border);
+      padding: 0.7rem 1rem;
+      background: var(--color-bg-main);
+      color: var(--color-text-main);
+      font-family: 'Outfit', sans-serif;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--color-green-deep);
+      box-shadow: 0 0 0 3px rgba(22,66,60,0.12);
+      background: var(--color-bg-main);
+    }
+    .form-label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-bottom: 0.4rem;
+      color: var(--color-text-main);
+    }
+    .char-count {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-align: right;
+    }
+    .faq-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .faq-item .accordion-button {
+      background: var(--color-bg-card);
+      color: var(--color-text-main);
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      padding: 1.1rem 1.5rem;
+      border-radius: 14px;
+      box-shadow: none;
+    }
+    .faq-item .accordion-button:not(.collapsed) {
+      background: var(--color-bg-card);
+      color: var(--color-green-deep);
+    }
+    .faq-item .accordion-button::after {
+      filter: none;
+    }
+    .faq-item .accordion-body {
+      padding: 0.5rem 1.5rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      background: var(--color-bg-card);
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: transform 0.2s, opacity 0.2s;
+      color: #fff;
+    }
+    .social-btn:hover { transform: translateY(-3px); color: #fff; opacity: 0.9; }
+    .section-tag {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .field-success {
+      border-color: #198754 !important;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") !important;
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, var(--color-green-deep), var(--color-green-medium));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.85rem 2rem;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(22,66,60,0.35);
+      color: #fff;
+    }
+    .submit-btn:disabled {
+      opacity: 0.7;
+      transform: none;
+    }
+    #contactSuccessMsg {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       Sticky Navigation Bar
+       ========================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top navbar-zaiqa" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-wrapper" href="index.html" aria-label="Zaiqa Homepage">
+        <div class="brand-emblem">ذ</div>
+        <div>
+          <span class="brand-title">Zaiqa</span>
+          <span class="brand-subtitle d-none d-sm-block">Pakistani Recipe Finder</span>
+        </div>
+      </a>
+
+      <div class="d-flex align-items-center gap-2 d-lg-none">
+        <a href="favorites.html" class="nav-action-btn" title="Saved Favorites" aria-label="Favorites">
+          <i class="bi bi-heart"></i>
+          <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+        </a>
+        <button type="button" class="nav-action-btn theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <i class="bi bi-moon-stars-fill theme-icon"></i>
+        </button>
+        <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list fs-2"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html">All Recipes</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html?category=Rice+Dishes">Pakistani Dishes</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html#categoriesSection">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="meal-planner.html">Meal Planner</a></li>
+          <li class="nav-item"><a class="nav-link" href="shopping-list.html">Shopping List</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+          <form class="d-flex global-search-form" role="search" aria-label="Global recipe search">
+            <input class="form-control form-control-sm search-input-navbar" type="search" placeholder="Search recipes…" aria-label="Search recipes">
+            <button class="btn btn-sm btn-primary ms-1" type="submit" aria-label="Submit search"><i class="bi bi-search"></i></button>
+          </form>
+          <a href="favorites.html" class="nav-action-btn d-none d-lg-flex" title="Saved Favorites" aria-label="Favorites">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+          </a>
+          <button type="button" class="nav-action-btn d-none d-lg-flex theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <i class="bi bi-moon-stars-fill theme-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       Hero Section
+       ========================================== -->
+  <section class="contact-hero">
+    <div class="container text-center position-relative">
+      <span class="mb-3 d-inline-block" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:0.3rem 0.9rem;font-size:0.82rem;backdrop-filter:blur(8px);color:#fff;">
+        <i class="bi bi-envelope-fill me-1"></i>Get In Touch
+      </span>
+      <h1 class="display-4 fw-bold mt-3 mb-4">We'd Love to Hear From You</h1>
+      <p class="lead mb-0 mx-auto opacity-90" style="max-width: 580px;">
+        Have a recipe suggestion, found an issue, or want to collaborate? Our team replies within 24 hours — we promise!
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Main Content
+       ========================================== -->
+  <main class="container py-5">
+    <div class="row g-5">
+
+      <!-- Left: Contact Info -->
+      <div class="col-lg-4">
+        <h4 class="fw-bold mb-4">Contact Information</h4>
+
+        <div class="contact-info-card d-flex align-items-start gap-3 mb-3">
+          <div class="info-icon" style="background:rgba(22,66,60,0.12);">
+            <i class="bi bi-envelope-fill" style="color:var(--color-green-deep);"></i>
+          </div>
+          <div>
+            <div class="fw-semibold mb-1" style="font-size:0.9rem;">Email Us</div>
+            <a href="mailto:hello@zaiqa.pk" class="text-muted small text-decoration-none">hello@zaiqa.pk</a>
+          </div>
+        </div>
+
+        <div class="contact-info-card d-flex align-items-start gap-3 mb-3">
+          <div class="info-icon" style="background:rgba(180,74,42,0.12);">
+            <i class="bi bi-geo-alt-fill" style="color:var(--color-terracotta);"></i>
+          </div>
+          <div>
+            <div class="fw-semibold mb-1" style="font-size:0.9rem;">Based In</div>
+            <p class="text-muted small mb-0">Lahore, Punjab, Pakistan 🇵🇰</p>
+          </div>
+        </div>
+
+        <div class="contact-info-card d-flex align-items-start gap-3 mb-3">
+          <div class="info-icon" style="background:rgba(218,165,32,0.12);">
+            <i class="bi bi-clock-fill" style="color:var(--color-saffron);"></i>
+          </div>
+          <div>
+            <div class="fw-semibold mb-1" style="font-size:0.9rem;">Response Time</div>
+            <p class="text-muted small mb-0">Usually within 24 hours<br>Mon – Sat, 9 AM – 6 PM PKT</p>
+          </div>
+        </div>
+
+        <div class="contact-info-card d-flex align-items-start gap-3 mb-4">
+          <div class="info-icon" style="background:rgba(22,66,60,0.12);">
+            <i class="bi bi-chat-dots-fill" style="color:var(--color-green-deep);"></i>
+          </div>
+          <div>
+            <div class="fw-semibold mb-1" style="font-size:0.9rem;">Social Media</div>
+            <div class="d-flex gap-2 mt-2">
+              <a href="#" class="social-btn" style="background:#1877f2;" aria-label="Facebook" title="Facebook">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="#" class="social-btn" style="background:linear-gradient(45deg,#405de6,#5851db,#833ab4,#c13584,#e1306c,#fd1d1d);" aria-label="Instagram" title="Instagram">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="#" class="social-btn" style="background:#1da1f2;" aria-label="Twitter / X" title="Twitter / X">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+              <a href="#" class="social-btn" style="background:#ff0000;" aria-label="YouTube" title="YouTube">
+                <i class="bi bi-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic card -->
+        <div class="card border-0 shadow-sm rounded-4 p-3" style="background:var(--color-bg-card);">
+          <h6 class="fw-bold mb-2" style="font-size:0.9rem;"><i class="bi bi-tag-fill me-2" style="color:var(--color-terracotta);"></i>What We Help With</h6>
+          <ul class="list-unstyled mb-0 small text-muted" style="line-height:2;">
+            <li><i class="bi bi-dot me-1"></i>Recipe suggestions & additions</li>
+            <li><i class="bi bi-dot me-1"></i>Bug reports or website issues</li>
+            <li><i class="bi bi-dot me-1"></i>Partnership & collaboration</li>
+            <li><i class="bi bi-dot me-1"></i>Cooking advice & techniques</li>
+            <li><i class="bi bi-dot me-1"></i>General feedback & praise 🙏</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="col-lg-8">
+        <div class="contact-form-card">
+          <h4 class="fw-bold mb-1">Send Us a Message</h4>
+          <p class="text-muted small mb-4">Fill in the form below and we'll respond as soon as possible.</p>
+
+          <!-- Success Message -->
+          <div id="contactSuccessMsg" class="alert alert-success rounded-3 mb-4" role="alert">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle-fill fs-5"></i>
+              <div>
+                <strong>Shukriya! Your message has been sent.</strong><br>
+                <span class="small">We'll get back to you within 24 hours. Jazak Allah Khair! 🙏</span>
+              </div>
+            </div>
+          </div>
+
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+
+              <!-- Name -->
+              <div class="col-sm-6">
+                <label for="contactName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contactName"
+                  name="name"
+                  placeholder="e.g., Ayesha Khan"
+                  required
+                  autocomplete="name"
+                  maxlength="80"
+                >
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-sm-6">
+                <label for="contactEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="contactEmail"
+                  name="email"
+                  placeholder="ayesha@example.com"
+                  required
+                  autocomplete="email"
+                >
+                <div class="invalid-feedback">Please enter a valid email.</div>
+              </div>
+
+              <!-- Subject / Topic -->
+              <div class="col-sm-6">
+                <label for="contactTopic" class="form-label">Topic <span class="text-danger">*</span></label>
+                <select class="form-select" id="contactTopic" name="topic" required>
+                  <option value="" disabled selected>Select a topic…</option>
+                  <option value="Recipe Suggestion">🍛 Recipe Suggestion</option>
+                  <option value="Bug Report">🐛 Bug / Issue Report</option>
+                  <option value="Cooking Advice">👨‍🍳 Cooking Advice</option>
+                  <option value="Partnership">🤝 Partnership / Collaboration</option>
+                  <option value="Feedback">💬 General Feedback</option>
+                  <option value="Other">📌 Other</option>
+                </select>
+                <div class="invalid-feedback">Please select a topic.</div>
+              </div>
+
+              <!-- Phone (optional) -->
+              <div class="col-sm-6">
+                <label for="contactPhone" class="form-label">Phone <span class="text-muted fw-normal">(optional)</span></label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="contactPhone"
+                  name="phone"
+                  placeholder="+92 300 1234567"
+                  autocomplete="tel"
+                >
+              </div>
+
+              <!-- Message -->
+              <div class="col-12">
+                <label for="contactMessage" class="form-label">Message <span class="text-danger">*</span></label>
+                <textarea
+                  class="form-control"
+                  id="contactMessage"
+                  name="message"
+                  rows="6"
+                  placeholder="Tell us what's on your mind. The more detail you share, the better we can help…"
+                  required
+                  minlength="20"
+                  maxlength="2000"
+                ></textarea>
+                <div class="d-flex justify-content-between mt-1">
+                  <div class="invalid-feedback d-inline">Message must be at least 20 characters.</div>
+                  <div class="char-count ms-auto"><span id="msgCharCount">0</span> / 2000</div>
+                </div>
+              </div>
+
+              <!-- Subscribe checkbox -->
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="subscribeNewsletter" name="subscribe">
+                  <label class="form-check-label small text-muted" for="subscribeNewsletter">
+                    Also subscribe me to the Zaiqa weekly recipe newsletter 🍽️
+                  </label>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="col-12">
+                <button type="submit" class="submit-btn w-100" id="contactSubmitBtn">
+                  <span id="submitBtnText"><i class="bi bi-send-fill me-2"></i>Send Message</span>
+                  <span id="submitBtnLoading" style="display:none;">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending…
+                  </span>
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       FAQ Section
+       ========================================== -->
+  <section class="py-5" style="background: var(--color-bg-section);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="text-center mb-5">
+            <span class="section-tag">FAQ</span>
+            <h2 class="fw-bold" style="font-family:'Playfair Display',serif;font-size:2rem;">Frequently Asked Questions</h2>
+          </div>
+
+          <div class="accordion" id="faqAccordion">
+
+            <div class="faq-item">
+              <div class="accordion-item border-0" style="background:transparent;">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false">
+                    Are all recipes on Zaiqa tested and authentic?
+                  </button>
+                </h3>
+                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Yes! Every recipe on Zaiqa is sourced from authentic Pakistani culinary traditions and verified by our recipe team. We cross-reference multiple sources including traditional cookbooks, regional cooks, and family recipes to ensure authenticity.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="accordion-item border-0" style="background:transparent;">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+                    Can I suggest a recipe that's not yet on the website?
+                  </button>
+                </h3>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Absolutely! We love hearing recipe suggestions from our community. Use the contact form above and select "Recipe Suggestion" as your topic. Please include the dish name, region, and any special notes you'd like us to consider.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="accordion-item border-0" style="background:transparent;">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+                    How does the ingredient scaling feature work?
+                  </button>
+                </h3>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    On any recipe detail page, you can adjust the serving size using the scaling buttons (½×, 1×, 2×, 4×). The ingredient quantities automatically recalculate to match your desired serving size. You can also check off ingredients as you add them to your pot!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="accordion-item border-0" style="background:transparent;">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+                    Is Zaiqa free to use?
+                  </button>
+                </h3>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Yes, completely free! Zaiqa is a passion project built for the love of Pakistani food. All 60+ recipes, the meal planner, shopping list, and favorites features are available at no cost.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="accordion-item border-0" style="background:transparent;">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false">
+                    Where is my saved data (favorites, meal plans) stored?
+                  </button>
+                </h3>
+                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    All your personal data — favorites, meal plans, and shopping lists — is stored securely in your browser's localStorage. This means your data never leaves your device and no account is required. It also means data is browser-specific.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Footer
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="brand-emblem" style="width:36px;height:36px;font-size:1.1rem;">ذ</div>
+            <div>
+              <div class="brand-title" style="font-size:1.2rem;">Zaiqa</div>
+              <div class="brand-subtitle" style="font-size:0.7rem;">Pakistani Recipe Finder</div>
+            </div>
+          </div>
+          <p class="small opacity-75">Discover, cook, and share authentic Pakistani recipes passed down through generations.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold mb-3">Explore</h6>
+          <ul class="list-unstyled small opacity-75">
+            <li class="mb-1"><a href="recipes.html" class="footer-link">All Recipes</a></li>
+            <li class="mb-1"><a href="favorites.html" class="footer-link">Favorites</a></li>
+            <li class="mb-1"><a href="meal-planner.html" class="footer-link">Meal Planner</a></li>
+            <li class="mb-1"><a href="shopping-list.html" class="footer-link">Shopping List</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold mb-3">Company</h6>
+          <ul class="list-unstyled small opacity-75">
+            <li class="mb-1"><a href="about.html" class="footer-link">About Us</a></li>
+            <li class="mb-1"><a href="contact.html" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="fw-semibold mb-3">Stay Connected</h6>
+          <p class="small opacity-75 mb-3">Get weekly recipes and cooking tips in your inbox.</p>
+          <form class="newsletter-form d-flex gap-2">
+            <input type="email" class="form-control form-control-sm" placeholder="Enter your email">
+            <button type="submit" class="btn btn-primary btn-sm px-3">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <hr class="my-4 opacity-25">
+      <div class="text-center small opacity-60">
+        &copy; 2025 Zaiqa — Pakistani Recipe Finder. Made with ❤️ for Pakistani food lovers.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTopBtn" class="back-to-top-btn" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Recipe Data -->
+  <script src="js/recipes.js"></script>
+  <!-- Core -->
+  <script src="js/main.js"></script>
+
+  <script>
+    // ==========================================
+    // Contact Form Logic
+    // ==========================================
+    const contactForm = document.getElementById('contactForm');
+    const msgTextarea = document.getElementById('contactMessage');
+    const charCount = document.getElementById('msgCharCount');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const submitBtnLoading = document.getElementById('submitBtnLoading');
+    const successMsg = document.getElementById('contactSuccessMsg');
+
+    // Char counter
+    if (msgTextarea && charCount) {
+      msgTextarea.addEventListener('input', () => {
+        charCount.textContent = msgTextarea.value.length;
+        if (msgTextarea.value.length > 1800) {
+          charCount.style.color = 'var(--color-terracotta)';
+        } else {
+          charCount.style.color = '';
+        }
+      });
+    }
+
+    // Real-time field validation with success styling
+    function validateField(field) {
+      if (field.checkValidity()) {
+        field.classList.remove('is-invalid');
+        field.classList.add('is-valid', 'field-success');
+      } else {
+        field.classList.remove('is-valid', 'field-success');
+        if (field.value.length > 0) {
+          field.classList.add('is-invalid');
+        }
+      }
+    }
+
+    ['contactName', 'contactEmail', 'contactTopic', 'contactMessage'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('blur', () => validateField(el));
+        el.addEventListener('input', () => {
+          if (el.classList.contains('is-invalid') || el.classList.contains('is-valid')) {
+            validateField(el);
+          }
+        });
+      }
+    });
+
+    // Form submission
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Validate all fields
+        const requiredFields = contactForm.querySelectorAll('[required]');
+        let isValid = true;
+        requiredFields.forEach(field => {
+          if (!field.checkValidity()) {
+            field.classList.add('is-invalid');
+            isValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+            field.classList.add('is-valid');
+          }
+        });
+
+        if (!isValid) {
+          showToast('Please fill in all required fields correctly.', 'danger');
+          return;
+        }
+
+        // Simulate sending
+        submitBtn.disabled = true;
+        submitBtnText.style.display = 'none';
+        submitBtnLoading.style.display = 'inline-flex';
+
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtnText.style.display = 'inline-flex';
+          submitBtnLoading.style.display = 'none';
+
+          // Show success
+          successMsg.style.display = 'block';
+          contactForm.style.display = 'none';
+
+          // Scroll to success msg
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+          showToast('Message sent! We\'ll respond within 24 hours.', 'success');
+        }, 1500);
+      });
+    }
+  </script>
+
+</body>
+</html>

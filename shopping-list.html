@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Shopping List — Zaiqa Pakistani Recipe Finder</title>
+  <meta name="description" content="Manage your Pakistani recipe ingredients with Zaiqa's smart shopping list. Add custom items, track purchases, and export your list.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/placeholder.svg" type="image/svg+xml">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style>
+    .shopping-hero {
+      background: linear-gradient(135deg, var(--color-green-deep) 0%, var(--color-green-medium) 60%, var(--color-terracotta) 100%);
+      padding: 3.5rem 0 2.5rem;
+      color: #fff;
+    }
+    .shopping-hero h1 { font-family: 'Playfair Display', serif; }
+    .shopping-stat-badge {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.85rem;
+      backdrop-filter: blur(8px);
+      color: #fff;
+    }
+    .add-item-card {
+      border: 2px dashed var(--color-green-deep);
+      border-radius: 16px;
+      background: var(--color-bg-card);
+      transition: border-color 0.2s;
+    }
+    .add-item-card:hover { border-color: var(--color-terracotta); }
+    .shopping-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 0.7rem;
+      transition: all 0.2s ease;
+      gap: 0.75rem;
+    }
+    .shopping-list-item:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transform: translateX(2px);
+    }
+    .shopping-list-item.purchased {
+      opacity: 0.55;
+    }
+    .shopping-list-item.purchased .item-text {
+      text-decoration: line-through;
+      color: var(--color-text-muted);
+    }
+    .custom-checkbox {
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      accent-color: var(--color-green-deep);
+      flex-shrink: 0;
+    }
+    .progress-ring-container {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+    }
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    .progress-ring-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 6; }
+    .progress-ring-fill { fill: none; stroke: #fff; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+    .progress-ring-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+    .category-tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 50px;
+      background: var(--color-bg-section);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 1rem;
+      color: var(--color-text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .section-divider::before, .section-divider::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid var(--color-border);
+    }
+    .action-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .shopping-list-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       Sticky Navigation Bar
+       ========================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top navbar-zaiqa" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-wrapper" href="index.html" aria-label="Zaiqa Homepage">
+        <div class="brand-emblem">ذ</div>
+        <div>
+          <span class="brand-title">Zaiqa</span>
+          <span class="brand-subtitle d-none d-sm-block">Pakistani Recipe Finder</span>
+        </div>
+      </a>
+
+      <!-- Mobile actions -->
+      <div class="d-flex align-items-center gap-2 d-lg-none">
+        <a href="favorites.html" class="nav-action-btn" title="Saved Favorites" aria-label="Favorites">
+          <i class="bi bi-heart"></i>
+          <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+        </a>
+        <button type="button" class="nav-action-btn theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <i class="bi bi-moon-stars-fill theme-icon"></i>
+        </button>
+        <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list fs-2"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html">All Recipes</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html?category=Rice+Dishes">Pakistani Dishes</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipes.html#categoriesSection">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="meal-planner.html">Meal Planner</a></li>
+          <li class="nav-item"><a class="nav-link active" href="shopping-list.html">Shopping List</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Desktop search + actions -->
+        <div class="d-flex align-items-center gap-2 mt-2 mt-lg-0">
+          <form class="d-flex global-search-form" role="search" aria-label="Global recipe search">
+            <input class="form-control form-control-sm search-input-navbar" type="search" placeholder="Search recipes…" aria-label="Search recipes">
+            <button class="btn btn-sm btn-primary ms-1" type="submit" aria-label="Submit search"><i class="bi bi-search"></i></button>
+          </form>
+          <a href="favorites.html" class="nav-action-btn d-none d-lg-flex" title="Saved Favorites" aria-label="Favorites">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+          </a>
+          <button type="button" class="nav-action-btn d-none d-lg-flex theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <i class="bi bi-moon-stars-fill theme-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       Hero Section
+       ========================================== -->
+  <section class="shopping-hero no-print">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="shopping-stat-badge"><i class="bi bi-cart3 me-1"></i>Smart Shopping</span>
+          </div>
+          <h1 class="display-5 fw-bold mb-2">Your Shopping List</h1>
+          <p class="lead mb-4 opacity-90">
+            Ingredient items from your saved recipes, plus custom additions. Track what you've picked up and never forget a thing at the market.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <span class="shopping-stat-badge" id="shoppingTotalCountBadge"><i class="bi bi-list-ul me-1"></i>0 items</span>
+            <span class="shopping-stat-badge" id="shoppingPurchasedCountBadge"><i class="bi bi-check2-circle me-1"></i>0 purchased</span>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-flex justify-content-center mt-4 mt-lg-0">
+          <div class="progress-ring-container" id="progressRingContainer">
+            <svg class="progress-ring" width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+              <circle class="progress-ring-bg" cx="40" cy="40" r="32"/>
+              <circle class="progress-ring-fill" id="progressRingFill" cx="40" cy="40" r="32"
+                stroke-dasharray="201" stroke-dashoffset="201"/>
+            </svg>
+            <div class="progress-ring-text">
+              <span id="progressPercent">0%</span>
+              <span style="font-size:0.65rem;opacity:0.85">done</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Main Content
+       ========================================== -->
+  <main class="container py-5">
+    <div class="row g-4">
+
+      <!-- Left: Add Item Form -->
+      <div class="col-lg-4 no-print">
+        <div class="add-item-card p-4 mb-4">
+          <h5 class="fw-bold mb-3"><i class="bi bi-plus-circle-fill me-2" style="color: var(--color-green-deep);"></i>Add Custom Item</h5>
+          <form id="addCustomItemForm" novalidate>
+            <div class="mb-3">
+              <label for="customItemName" class="form-label small fw-semibold">Ingredient / Item Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="customItemName"
+                placeholder="e.g., 500g Basmati Rice"
+                required
+                maxlength="120"
+                autocomplete="off"
+              >
+            </div>
+            <div class="mb-3">
+              <label for="customItemCategory" class="form-label small fw-semibold">Category</label>
+              <select class="form-select" id="customItemCategory">
+                <option value="Spices &amp; Pantry">Spices &amp; Pantry</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Meat &amp; Poultry">Meat &amp; Poultry</option>
+                <option value="Rice Dishes">Rice &amp; Grains</option>
+                <option value="Dairy &amp; Cold">Dairy &amp; Cold</option>
+                <option value="Bread &amp; Bakery">Bread &amp; Bakery</option>
+                <option value="Oils &amp; Condiments">Oils &amp; Condiments</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Lentils &amp; Beans">Lentils &amp; Beans</option>
+                <option value="Frozen &amp; Canned">Frozen &amp; Canned</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-plus-lg me-1"></i>Add to List
+            </button>
+          </form>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4" style="background: var(--color-bg-card);">
+          <h6 class="fw-bold mb-3"><i class="bi bi-lightbulb-fill me-2 text-warning"></i>Shopping Tips</h6>
+          <ul class="list-unstyled small text-muted mb-0" style="line-height: 2;">
+            <li><i class="bi bi-check-circle text-success me-2"></i>Visit your local <strong>mandi</strong> early morning for fresh produce</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Buy whole spices in bulk for better aroma</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Check expiry on packaged masalas</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Aged Basmati rice is always preferred</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Fresh dahi (yogurt) makes a huge difference</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Shopping List Items -->
+      <div class="col-lg-8">
+
+        <!-- Toolbar -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 no-print">
+          <h4 class="fw-bold mb-0">Shopping Items</h4>
+          <div class="action-toolbar">
+            <button class="btn btn-sm btn-outline-success" id="clearPurchasedBtn" title="Remove all checked items">
+              <i class="bi bi-check2-all me-1"></i>Clear Purchased
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="copyShoppingListBtn" title="Copy list to clipboard">
+              <i class="bi bi-clipboard me-1"></i>Copy
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="printShoppingListBtn" title="Print shopping list">
+              <i class="bi bi-printer me-1"></i>Print
+            </button>
+            <button class="btn btn-sm btn-outline-danger" id="clearAllShoppingBtn" title="Clear entire list">
+              <i class="bi bi-trash3 me-1"></i>Clear All
+            </button>
+          </div>
+        </div>
+
+        <!-- Items Container -->
+        <div id="shoppingItemsContainer" role="list" aria-label="Shopping list items">
+          <!-- Populated by shopping-list.js -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyShoppingList" class="text-center py-5" style="display: none;">
+          <div class="mb-3" style="font-size: 4rem;">🛒</div>
+          <h5 class="fw-bold mb-2">Your list is empty!</h5>
+          <p class="text-muted mb-4">Add ingredients from a recipe page, or use the form on the left to add custom items.</p>
+          <a href="recipes.html" class="btn btn-primary">
+            <i class="bi bi-book-half me-2"></i>Browse Recipes
+          </a>
+        </div>
+
+        <!-- Print header (only shows in print) -->
+        <div class="d-none" id="printHeader" style="margin-bottom: 1.5rem;">
+          <h2 style="font-family: serif;">🛒 Zaiqa — My Shopping List</h2>
+          <p style="color: #555;">Printed from Zaiqa Pakistani Recipe Finder</p>
+          <hr>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       Confirm Clear Modal
+       ========================================== -->
+  <div class="modal fade" id="confirmClearShoppingModal" tabindex="-1" aria-labelledby="confirmClearShoppingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold" id="confirmClearShoppingModalLabel">
+            <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Clear All Items?
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-muted small pb-0">
+          This will permanently remove all items from your shopping list. This action cannot be undone.
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm" id="confirmClearShoppingAction">Yes, Clear All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Footer
+       ========================================== -->
+  <footer class="site-footer no-print">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="brand-emblem" style="width:36px;height:36px;font-size:1.1rem;">ذ</div>
+            <div>
+              <div class="brand-title" style="font-size:1.2rem;">Zaiqa</div>
+              <div class="brand-subtitle" style="font-size:0.7rem;">Pakistani Recipe Finder</div>
+            </div>
+          </div>
+          <p class="small opacity-75">Discover, cook, and share authentic Pakistani recipes passed down through generations.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold mb-3">Explore</h6>
+          <ul class="list-unstyled small opacity-75">
+            <li class="mb-1"><a href="recipes.html" class="footer-link">All Recipes</a></li>
+            <li class="mb-1"><a href="favorites.html" class="footer-link">Favorites</a></li>
+            <li class="mb-1"><a href="meal-planner.html" class="footer-link">Meal Planner</a></li>
+            <li class="mb-1"><a href="shopping-list.html" class="footer-link">Shopping List</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold mb-3">Company</h6>
+          <ul class="list-unstyled small opacity-75">
+            <li class="mb-1"><a href="about.html" class="footer-link">About Us</a></li>
+            <li class="mb-1"><a href="contact.html" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4 opacity-25">
+      <div class="text-center small opacity-60">
+        &copy; 2025 Zaiqa — Pakistani Recipe Finder. Made with ❤️ for Pakistani food lovers.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTopBtn" class="back-to-top-btn no-print" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Recipe Data -->
+  <script src="js/recipes.js"></script>
+  <!-- Core -->
+  <script src="js/main.js"></script>
+  <!-- Shopping List Logic -->
+  <script src="js/shopping-list.js"></script>
+
+  <script>
+    // Update progress ring
+    function updateProgressRing() {
+      const fill = document.getElementById('progressRingFill');
+      const pct = document.getElementById('progressPercent');
+      const total = document.querySelectorAll('.shopping-list-item').length;
+      const purchased = document.querySelectorAll('.shopping-list-item.purchased').length;
+      if (!fill || !pct) return;
+      const percent = total > 0 ? Math.round((purchased / total) * 100) : 0;
+      const circumference = 201;
+      fill.style.strokeDashoffset = circumference - (circumference * percent / 100);
+      pct.textContent = percent + '%';
+    }
+    // Observe DOM changes to update ring
+    const observer = new MutationObserver(updateProgressRing);
+    const container = document.getElementById('shoppingItemsContainer');
+    if (container) {
+      observer.observe(container, { childList: true, subtree: true, attributes: true });
+    }
+    setTimeout(updateProgressRing, 100);
+  </script>
+
+</body>
+</html>

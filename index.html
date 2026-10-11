@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zaiqa — Pakistani Recipe Finder | Discover Authentic Pakistani Cuisine</title>
+  <meta name="description" content="Discover 60+ authentic Pakistani recipes with step-by-step cooking instructions, ingredient scaling, weekly meal planning, and smart shopping lists.">
+  <meta name="keywords" content="Pakistani recipes, Biryani, Karahi, Nihari, Halwa Puri, Pakistani food, desi cooking, meal planner">
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/placeholder.svg" type="image/svg+xml">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==========================================
+       Sticky Navigation Bar
+       ========================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top navbar-zaiqa" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-wrapper" href="index.html" aria-label="Zaiqa Homepage">
+        <div class="brand-emblem">ذ</div>
+        <div>
+          <span class="brand-title">Zaiqa</span>
+          <span class="brand-subtitle d-none d-sm-block">Pakistani Recipe Finder</span>
+        </div>
+      </a>
+
+      <!-- Mobile actions -->
+      <div class="d-flex align-items-center gap-2 d-lg-none">
+        <a href="favorites.html" class="nav-action-btn" title="Saved Favorites" aria-label="Favorites">
+          <i class="bi bi-heart"></i>
+          <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+        </a>
+        <button type="button" class="nav-action-btn theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <i class="bi bi-moon-stars-fill theme-icon"></i>
+        </button>
+        <button class="navbar-toggler border-0 shadow-none p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list fs-2"></i>
+        </button>
+      </div>
+
+      <!-- Nav Links & Search -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="recipes.html">All Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="recipes.html?category=Rice+Dishes">Pakistani Dishes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="recipes.html#categoriesSection">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="favorites.html">Favorites</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="meal-planner.html">Meal Planner</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="shopping-list.html">Shopping List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Desktop Search & Action Icons -->
+        <div class="d-none d-lg-flex align-items-center gap-2">
+          <form class="global-search-form nav-search-form" action="recipes.html" method="GET">
+            <i class="bi bi-search nav-search-icon"></i>
+            <input type="search" class="form-control nav-search-input" name="search" placeholder="Search biryani, karahi..." aria-label="Search recipes">
+          </form>
+
+          <a href="favorites.html" class="nav-action-btn" title="Saved Favorites" aria-label="View Favorites">
+            <i class="bi bi-heart"></i>
+            <span class="nav-badge favorites-count-badge" style="display: none;">0</span>
+          </a>
+
+          <button type="button" class="nav-action-btn theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <i class="bi bi-moon-stars-fill theme-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       Homepage Hero Section
+       ========================================== -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="hero-badge">
+            <i class="bi bi-stars text-warning"></i> Authentic Pakistani Culinary Heritage
+          </div>
+          <h1 class="hero-title">
+            Discover the <span class="highlight">True Taste</span> of Pakistan
+          </h1>
+          <p class="hero-subtitle">
+            Explore 50+ delicious Pakistani recipes, from traditional biryani to homemade desserts. Cook something amazing today!
+          </p>
+
+          <!-- Search Input in Hero -->
+          <form class="hero-search-wrapper global-search-form" action="recipes.html" method="GET">
+            <i class="bi bi-search fs-5 text-muted ms-3"></i>
+            <input type="text" class="hero-search-input" name="search" placeholder="Search by dish name, potato, chicken..." aria-label="Search recipes">
+            <button type="submit" class="btn btn-primary-zaiqa px-4">Find Recipes</button>
+          </form>
+
+          <!-- Action buttons -->
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="recipes.html" class="btn btn-outline-zaiqa">
+              <i class="bi bi-grid-3x3-gap"></i> Explore All Recipes
+            </a>
+            <button type="button" class="btn btn-surprise" onclick="triggerSurpriseRecipe()">
+              <i class="bi bi-dice-5-fill"></i> Surprise Me!
+            </button>
+          </div>
+
+          <!-- Statistics -->
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">60+</div>
+              <div class="hero-stat-label">Authentic Dishes</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">7</div>
+              <div class="hero-stat-label">Rich Categories</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-number">100%</div>
+              <div class="hero-stat-label">Step-by-Step Guides</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="hero-image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=900&q=80" 
+              alt="Authentic Royal Chicken Biryani" 
+              loading="eager"
+              onerror="this.src='images/placeholder.svg';"
+            >
+            <div class="hero-floating-card">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.7rem;">CHEF'S PICK</span>
+                <span class="small"><i class="bi bi-star-fill text-warning"></i> 4.9 (128)</span>
+              </div>
+              <h5 class="mb-1 font-serif text-white">Karachi Chicken Biryani</h5>
+              <p class="small text-white-50 mb-2">Layered with aromatic saffron milk & golden onions.</p>
+              <a href="recipe.html?id=chicken-biryani" class="btn btn-sm btn-light py-1 px-3 fw-bold w-100" style="color: var(--primary-green);">
+                View Full Recipe <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       Popular Categories Bar
+       ========================================== -->
+  <section class="py-5" id="categoriesSection" style="background-color: var(--bg-secondary);">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+        <div>
+          <span class="text-uppercase fw-bold text-terracotta small tracking-wide">Traditions & Flavors</span>
+          <h2 class="mb-0">Explore by Category</h2>
+        </div>
+        <a href="recipes.html" class="btn btn-sm btn-outline-zaiqa mt-2 mt-md-0 align-self-start align-self-md-auto">
+          View All 60 Recipes <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Rice+Dishes" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-success"><i class="bi bi-flower1"></i></div>
+            <h5 class="mb-1 font-serif">Rice Dishes</h5>
+            <span class="small text-muted">7 Recipes (Biryani & Pulao)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Chicken+Recipes" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-danger"><i class="bi bi-egg-fried"></i></div>
+            <h5 class="mb-1 font-serif">Chicken Recipes</h5>
+            <span class="small text-muted">8 Recipes (Karahi, Handi & Tikka)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Beef+%26+Mutton" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2" style="color: var(--terracotta);"><i class="bi bi-fire"></i></div>
+            <h5 class="mb-1 font-serif">Beef & Mutton</h5>
+            <span class="small text-muted">9 Recipes (Nihari, Qorma & Kebabs)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Vegetarian" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-success"><i class="bi bi-tree-fill"></i></div>
+            <h5 class="mb-1 font-serif">Vegetarian</h5>
+            <span class="small text-muted">11 Recipes (Daal, Saag & Sabzi)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Breads+%26+Breakfast" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-warning"><i class="bi bi-sun-fill"></i></div>
+            <h5 class="mb-1 font-serif">Breads & Breakfast</h5>
+            <span class="small text-muted">8 Recipes (Parathas & Halwa Puri)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Street+Food+%26+Snacks" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-primary"><i class="bi bi-shop"></i></div>
+            <h5 class="mb-1 font-serif">Street Food & Snacks</h5>
+            <span class="small text-muted">9 Recipes (Bun Kebab, Samosa & Chaat)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html?category=Desserts+%26+Drinks" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-info"><i class="bi bi-cup-hot-fill"></i></div>
+            <h5 class="mb-1 font-serif">Desserts & Drinks</h5>
+            <span class="small text-muted">8 Recipes (Kheer, Halwa & Chai)</span>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <a href="recipes.html" class="card border-0 shadow-sm p-3 text-center h-100 text-decoration-none" style="background-color: var(--bg-card); transition: all 0.2s;">
+            <div class="fs-1 mb-2 text-secondary"><i class="bi bi-collection-play-fill"></i></div>
+            <h5 class="mb-1 font-serif">All Recipes</h5>
+            <span class="small text-muted">Browse complete collection</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Featured Traditional Dishes
+       ========================================== -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="text-uppercase fw-bold text-terracotta small tracking-wide">Signature Heritage</span>
+        <h2 class="display-6">Trending Pakistani Masterpieces</h2>
+        <p class="text-muted mx-auto" style="max-width: 620px;">
+          Hand-picked traditional recipes tested for culinary perfection. Complete with exact ingredient quantities and chef secrets.
+        </p>
+      </div>
+
+      <div class="row g-4" id="featuredRecipesGrid">
+        <!-- Rendered dynamically via inline helper or JS -->
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="recipes.html" class="btn btn-primary-zaiqa px-5 py-3 fs-5">
+          <i class="bi bi-grid-fill"></i> View All 60 Recipes
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Interactive Meal Planner & Feature Banner
+       ========================================== -->
+  <section class="py-5" style="background-color: var(--bg-secondary);">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-2 fw-semibold">
+            <i class="bi bi-calendar-check me-1"></i> SMART KITCHEN TOOLS
+          </span>
+          <h2 class="display-6 mb-3">Weekly Pakistani Meal Planner & Smart Shopping List</h2>
+          <p class="text-muted mb-4 leading-relaxed">
+            Take the stress out of daily "aaj kya pakayein" (what should we cook today). Plan Monday to Sunday meals, schedule your favorite biryanis and daals, and automatically compile an aggregated shopping list.
+          </p>
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <h6 class="mb-0 fw-bold font-serif">7-Day Weekly Grid</h6>
+                  <small class="text-muted">Breakfast, Lunch, Dinner & Snacks</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <h6 class="mb-0 fw-bold font-serif">Auto Shopping List</h6>
+                  <small class="text-muted">Consolidate ingredients with one click</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <h6 class="mb-0 fw-bold font-serif">Ingredient Scaling</h6>
+                  <small class="text-muted">Adjust 1x, 2x, 3x servings effortlessly</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                <div>
+                  <h6 class="mb-0 fw-bold font-serif">Cooking Mode & Timer</h6>
+                  <small class="text-muted">Step-by-step guidance with sound alerts</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="meal-planner.html" class="btn btn-primary-zaiqa">
+              <i class="bi bi-calendar-range"></i> Open Meal Planner
+            </a>
+            <a href="shopping-list.html" class="btn btn-outline-zaiqa">
+              <i class="bi bi-cart3"></i> View Shopping List
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg p-4" style="background-color: var(--bg-card); border-radius: var(--radius-lg);">
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+              <h5 class="mb-0 font-serif"><i class="bi bi-calendar-event text-success me-2"></i> Sample Sunday Feast</h5>
+              <span class="badge bg-warning text-dark">Weekend Special</span>
+            </div>
+            <div class="mb-3 p-3 rounded" style="background-color: var(--bg-secondary);">
+              <div class="small text-muted fw-bold text-uppercase">Breakfast (09:00 AM)</div>
+              <div class="fw-bold fs-6">Halwa Puri & Chana Tarkari</div>
+              <div class="small text-muted">Crispy puffed puris with sweet semolina halwa & sour achar</div>
+            </div>
+            <div class="mb-3 p-3 rounded" style="background-color: var(--bg-secondary);">
+              <div class="small text-muted fw-bold text-uppercase">Lunch (02:00 PM)</div>
+              <div class="fw-bold fs-6">Karachi Chicken Biryani</div>
+              <div class="small text-muted">Served with zeera raita, sliced onions and fresh salad</div>
+            </div>
+            <div class="p-3 rounded" style="background-color: var(--bg-secondary);">
+              <div class="small text-muted fw-bold text-uppercase">Dinner (08:30 PM)</div>
+              <div class="fw-bold fs-6">Peshawari Chapli Kebab & Roghani Naan</div>
+              <div class="small text-muted">Crispy pan-fried beef patties with mint chutney and tea</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       The 4 Pillars of Pakistani Flavors
+       ========================================== -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="text-uppercase fw-bold text-terracotta small tracking-wide">Culinary Traditions</span>
+        <h2 class="display-6">The Art of Pakistani Cooking</h2>
+        <p class="text-muted mx-auto" style="max-width: 600px;">
+          Generations of spice mastery, slow dum braising, and clay tandoor baking come together to create unforgettable flavor.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm p-4 h-100 text-center" style="background-color: var(--bg-card);">
+            <div class="brand-emblem mx-auto mb-3" style="width: 55px; height: 55px;">
+              <i class="bi bi-fire fs-4"></i>
+            </div>
+            <h5 class="font-serif">The Iron Karahi</h5>
+            <p class="text-muted small mb-0">High-heat stir frying in wok-style karahis without onions, relying purely on ripe tomatoes, ginger, and green chilies.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm p-4 h-100 text-center" style="background-color: var(--bg-card);">
+            <div class="brand-emblem mx-auto mb-3" style="width: 55px; height: 55px; background: linear-gradient(135deg, var(--gold), var(--terracotta));">
+              <i class="bi bi-clock-history fs-4"></i>
+            </div>
+            <h5 class="font-serif">Slow Dum Steaming</h5>
+            <p class="text-muted small mb-0">Sealing pots with dough or foil over lowest coals so meats and rice absorb trapped steam into silky tenderness.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm p-4 h-100 text-center" style="background-color: var(--bg-card);">
+            <div class="brand-emblem mx-auto mb-3" style="width: 55px; height: 55px; background: linear-gradient(135deg, var(--terracotta), var(--primary-green));">
+              <i class="bi bi-droplet-half fs-4"></i>
+            </div>
+            <h5 class="font-serif">Sizzling Tarka</h5>
+            <p class="text-muted small mb-0">Tempering hot desi ghee with garlic slices, cumin seeds, and round red chilies poured sizzling over creamy daals.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm p-4 h-100 text-center" style="background-color: var(--bg-card);">
+            <div class="brand-emblem mx-auto mb-3" style="width: 55px; height: 55px; background: linear-gradient(135deg, var(--primary-green), #0E2E2A);">
+              <i class="bi bi-flower2 fs-4"></i>
+            </div>
+            <h5 class="font-serif">Fragrant Kewra & Saffron</h5>
+            <p class="text-muted small mb-0">Infusing royal kormas and biryanis with floral screwpine essence, green cardamoms, and saffron-infused milk.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Newsletter Subscription Section
+       ========================================== -->
+  <section class="py-5" style="background: linear-gradient(135deg, var(--primary-green), #0E2E2A); color: #FFFFFF;">
+    <div class="container text-center py-4">
+      <span class="badge bg-warning text-dark mb-2 px-3 py-1 fw-bold">WEEKLY RECIPES</span>
+      <h2 class="display-6 text-white mb-2">Get Authentic Pakistani Recipes in Your Inbox</h2>
+      <p class="text-white-50 mx-auto mb-4" style="max-width: 550px;">
+        Join 15,000+ passionate food lovers. We share authentic weekend recipes, cooking secrets, and seasonal holiday meal plans every Thursday.
+      </p>
+      <form class="newsletter-form d-flex flex-column flex-sm-row justify-content-center gap-2 mx-auto" style="max-width: 500px;">
+        <input type="email" class="form-control px-3 py-2 border-0" placeholder="Enter your email address" required aria-label="Email for newsletter">
+        <button type="submit" class="btn btn-terracotta px-4 py-2 text-nowrap">Subscribe Free</button>
+      </form>
+      <small class="text-white-50 mt-2 d-block" style="font-size: 0.75rem;">(Demonstration form. No real emails sent; client-side feedback only.)</small>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Master Footer
+       ========================================== -->
+  <footer class="footer-zaiqa">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="navbar-brand-wrapper mb-3">
+            <div class="brand-emblem">ذ</div>
+            <div>
+              <span class="brand-title">Zaiqa</span>
+              <span class="brand-subtitle">Pakistani Recipe Finder</span>
+            </div>
+          </div>
+          <p class="text-muted small pe-lg-4">
+            Celebrating the rich culinary heritage of Pakistan. From royal Mughlai biryanis to Lahore street food and Karachi bun kebabs, discover authentic recipes tested for home cooks worldwide.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="#" class="nav-action-btn" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="nav-action-btn" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="nav-action-btn" title="YouTube" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" class="nav-action-btn" title="Pinterest" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+          <h5 class="footer-heading">Explore</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="recipes.html">All Recipes (60)</a></li>
+            <li><a href="recipes.html?category=Rice+Dishes">Rice & Biryanis</a></li>
+            <li><a href="recipes.html?category=Chicken+Recipes">Chicken Dishes</a></li>
+            <li><a href="recipes.html?category=Beef+%26+Mutton">Beef & Mutton</a></li>
+            <li><a href="recipes.html?category=Vegetarian">Vegetarian</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+          <h5 class="footer-heading">Features</h5>
+          <ul class="footer-links">
+            <li><a href="favorites.html">Saved Favorites</a></li>
+            <li><a href="meal-planner.html">Weekly Meal Planner</a></li>
+            <li><a href="shopping-list.html">Smart Shopping List</a></li>
+            <li><a href="recipes.html?diet=veg">Vegetarian Hub</a></li>
+            <li><a href="about.html">Pakistani Spices Guide</a></li>
+            <li><a href="contact.html">Send Feedback</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <h5 class="footer-heading">About Zaiqa</h5>
+          <p class="text-muted small mb-3">
+            Zaiqa is an open culinary platform built to preserve and document traditional Pakistani cooking methods, authentic spice blends, and regional cuisine.
+          </p>
+          <div class="p-3 rounded border" style="background-color: var(--bg-card); border-color: var(--border-color) !important;">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-shield-check text-success"></i>
+              <strong class="small">100% Client-Side Ready</strong>
+            </div>
+            <div class="small text-muted" style="font-size: 0.8rem;">
+              All your favorites, weekly meal plans, custom shopping lists, and reviews are securely saved in your browser's localStorage.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <div>
+          © 2026 Zaiqa — Pakistani Recipe Finder. Crafted with passion & pride for authentic Pakistani food.
+        </div>
+        <div class="d-flex gap-3">
+          <a href="about.html" class="text-muted text-decoration-none small">About</a>
+          <a href="contact.html" class="text-muted text-decoration-none small">Contact</a>
+          <a href="recipes.html" class="text-muted text-decoration-none small">Recipes</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button type="button" class="back-to-top" id="backToTopBtn" title="Back to top" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Database & Core JS -->
+  <script src="js/recipes.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Inline script to populate featured trending recipes on homepage -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const featuredContainer = document.getElementById("featuredRecipesGrid");
+      if (!featuredContainer || !window.RECIPES) return;
+
+      // Select 6 top signature recipes
+      const featuredIds = [
+        "chicken-biryani",
+        "chicken-karahi",
+        "beef-nihari",
+        "daal-chawal",
+        "chapli-kebab",
+        "halwa-puri"
+      ];
+
+      const featuredList = window.RECIPES.filter(r => featuredIds.includes(r.id));
+      const favorites = (function() {
+        try { return JSON.parse(localStorage.getItem("zaiqa_favorites") || "[]"); }
+        catch(e) { return []; }
+      })();
+
+      featuredContainer.innerHTML = featuredList.map(recipe => {
+        const isFav = favorites.includes(recipe.id);
+        return `
+          <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="recipe-card w-100">
+              <div class="recipe-card-img-wrapper">
+                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-card-img" loading="lazy" onerror="this.src='images/placeholder.svg';">
+                <span class="recipe-badge-category">${recipe.category}</span>
+                <button type="button" class="recipe-favorite-btn ${isFav ? 'active' : ''}" data-id="${recipe.id}" title="Toggle Favorite">
+                  <i class="bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                </button>
+                <span class="recipe-badge-time"><i class="bi bi-clock"></i> ${recipe.totalTime}m</span>
+              </div>
+              <div class="recipe-card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="recipe-card-region">${recipe.region}</span>
+                  <span class="badge ${recipe.isVegetarian ? 'bg-success' : 'bg-danger'} bg-opacity-10 text-${recipe.isVegetarian ? 'success' : 'danger'} border border-${recipe.isVegetarian ? 'success' : 'danger'} border-opacity-25" style="font-size: 0.7rem;">
+                    ${recipe.isVegetarian ? 'Veg' : 'Non-Veg'}
+                  </span>
+                </div>
+                <h3 class="recipe-card-title">${recipe.name}</h3>
+                <div class="recipe-card-urdu">${recipe.urduName}</div>
+                <p class="recipe-card-desc">${recipe.description}</p>
+                <div class="recipe-card-meta">
+                  <div class="recipe-meta-item"><i class="bi bi-bar-chart"></i> ${recipe.difficulty}</div>
+                  <div class="recipe-meta-item"><i class="bi bi-fire"></i> ${recipe.spiceLevel}</div>
+                  <div class="recipe-meta-item"><i class="bi bi-lightning-charge"></i> ${recipe.calories} kcal</div>
+                </div>
+                <div class="recipe-card-footer">
+                  <div class="recipe-rating">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <span>${recipe.rating.toFixed(1)}</span>
+                    <span class="text-muted small">(${recipe.reviewCount})</span>
+                  </div>
+                  <a href="recipe.html?id=${recipe.id}" class="btn btn-sm btn-primary-zaiqa px-3">
+                    View Recipe <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Bind favorite clicks
+      featuredContainer.querySelectorAll(".recipe-favorite-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = btn.getAttribute("data-id");
+          let favs = [];
+          try { favs = JSON.parse(localStorage.getItem("zaiqa_favorites") || "[]"); } catch(err){}
+          const idx = favs.indexOf(id);
+          const icon = btn.querySelector("i");
+          const r = window.RECIPES.find(x => x.id === id);
+
+          if (idx === -1) {
+            favs.push(id);
+            btn.classList.add("active", "pulse-heart");
+            icon.className = "bi bi-heart-fill";
+            showToast(`Added "${r.name}" to Favorites!`, "success");
+          } else {
+            favs.splice(idx, 1);
+            btn.classList.remove("active", "pulse-heart");
+            icon.className = "bi bi-heart";
+            showToast(`Removed "${r.name}" from Favorites.`, "info");
+          }
+          localStorage.setItem("zaiqa_favorites", JSON.stringify(favs));
+          window.dispatchEvent(new Event("favoritesUpdated"));
+        });
+      });
+    });
+  </script>
+</body>
+</html>
